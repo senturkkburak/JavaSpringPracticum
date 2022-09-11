@@ -19,7 +19,7 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
-
+    //*****ProductCreation********
     public Product createOneProduct(ProductCreateRequest newProduct) {
         Product toSave = new Product();
         toSave.setId(newProduct.getId());
@@ -33,12 +33,12 @@ public class ProductService {
     public Product getOneProduct(Long productId) {
         return productRepository.findById(productId).orElse(null);
     }
-
+    //*****expired********
     public List<Product> getExpired() {
 
         return productRepository.findAllByExpireDateBefore(new Date());
     }
-
+    //*****notexpired********
     public List<Product> getNotExpired() {
         return productRepository.findAllByExpireDateAfterOrExpireDateIsNull(new Date());
     }

@@ -22,13 +22,7 @@ public class CommentService {
         this.productService=productService;
     }
 
-//    public List<Comment> getAllComments(Optional<Long> productId) {
-//       if (productId.isPresent()){
-//           return commentRepository.findByProductId(productId.get());
-//       }
-//           return commentRepository.findAll();
-//
-//    }
+// *********************Comment Creation************************
 
     public Comment createOneComment(CommentCreateRequest newCommentRequest) {
        User user = userService.getOneUser(newCommentRequest.getUserId());
@@ -44,6 +38,8 @@ public class CommentService {
        return commentRepository.save(toSave);
     }
 
+    //*********************Get All Comments (if only product id is given, returns all comments on that product)
+    //if all fields were given, returns all comments on that product between given dates
 
     public List<Comment> getAllComments(Optional<Long> productId, Optional<Date> minDate, Optional<Date> maxDate) {
        if (productId.isPresent() && minDate.isPresent() && maxDate.isPresent()){
@@ -56,10 +52,12 @@ public class CommentService {
 
     }
 
+    //****************Get all comments of a user******************
     public List<Comment> getCommentsOfUser(Long userId) {
        return commentRepository.findAllByUserId(userId);
     }
 
+    //****************Get all comments of a user between two dates************************
     public List<Comment> getCommentsOfUserWithDate(Long userId, Optional<Date> minDate, Optional<Date> maxDate) {
        return commentRepository.findAllByUserIdAndCommentDateBetween(userId,minDate,maxDate);
     }
